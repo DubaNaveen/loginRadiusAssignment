@@ -6,12 +6,18 @@ export default {
     // USERNAME:process.env.USERNAME,
     // PASSWORD:process.env.PASSWORD,
     // HOST:process.env.HOST,
-    DATABASE_NAME: "loginRadius",
-    USERNAME: "root",
-    PASSWORD: "password",
-    HOST: "localhost",
+    // DATABASE_NAME: "loginRadius",
+    // USERNAME: "root",
+    // PASSWORD: "password",
+    // HOST: "localhost",
+    DATABASE_NAME: "defaultdb",
+    USERNAME: "avnadmin",
+    PASSWORD: "***REMOVED***",
+    HOST: "mysql-29cc4346-dubanaveen19-2a29.k.aivencloud.com",
+    PORT: 20180
+
   },
-  RUNNING_PORT: parseInt(process.env.PORT || "3003"),
+  RUNNING_PORT: parseInt(process.env.PORT || "3304"),
   NODE_ENV: "dev",
   WHITELISTED_DOMAINS: [process.env.LOCAL_DOMAIN],
   JWT: {
