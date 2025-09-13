@@ -18,10 +18,14 @@ const UserModel = sequelize.define(
       type: DataTypes.STRING(256),
       allowNull: false,
     },
-    whitelistedIps: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    blocked: {
+      type: DataTypes.BOOLEAN(),
       allowNull: false,
-      defaultValue: [],
+      defaultValue: false,
+    },
+    userBlockedTime: {
+      type: DataTypes.DATE(),
+      allowNull: true,
     },
   },
   {

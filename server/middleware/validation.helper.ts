@@ -3,6 +3,7 @@ import { RESPONSES } from "../constants/response";
 import Joi from "joi";
 import { MESSAGES } from "../constants/messages";
 import UserModel from "../../server/models/user.model";
+import BlockedIpModel from "../models/BlockedIp.model";
 const dnsPromises = require("dns2");
 
 export const options = {
@@ -11,10 +12,6 @@ export const options = {
       label: "",
     },
   },
-};
-
-const capitalize = (s: string) => {
-  return s && s[0].toUpperCase() + s.slice(1);
 };
 
 const dns = new dnsPromises(options);
@@ -54,15 +51,13 @@ export class ValidationHandler {
       });
 
       if (userRegOtpDetails) {
-        return {
+        return res.status(RESPONSES.BADREQUEST).send({
           error: true,
           message: MESSAGES.USER.REGISTER.ALREADY_REGISTERED,
-        };
+        });
       }
-
       return next();
     } catch (error: any) {
-      console.log("error in signup", error);
       res.status(error.status ? error.status : RESPONSES.BADREQUEST).send({
         message: error.message,
         error: true,
@@ -72,6 +67,15 @@ export class ValidationHandler {
 
   signin = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const checkIpBlocked = await BlockedIpModel.count({
+        where: { ip: req.ip },
+      });
+      if (checkIpBlocked === 1) {
+        return res.status(RESPONSES.BADREQUEST).send({
+          message:MESSAGES.USER.IP_BLOCKED,
+          error: true,
+        });
+      }
       const reqBody = req.body;
       if (reqBody.email) {
         const emailInfo = await this.emailValidation(reqBody.email);
