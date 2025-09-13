@@ -11,12 +11,7 @@ export default {
     // USERNAME: "root",
     // PASSWORD: "password",
     // HOST: "localhost",
-    // DATABASE_NAME: "defaultdb",
-    // USERNAME: "avnadmin",
-    // PASSWORD: "AVNS_qkCecjZlR5i4tVsbFqI",
-    // HOST: "mysql-29cc4346-dubanaveen19-2a29.k.aivencloud.com",
-    // PORT: 20180
-
+  
   },
   RUNNING_PORT: parseInt(process.env.PORT || "3304"),
   NODE_ENV: "dev",
